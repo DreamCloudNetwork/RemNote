@@ -1,0 +1,10 @@
+[project]
+name = "remnote"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.13"
+dependencies = [
+    "mariadb>=1.1.14",
+    "pymysql>=1.1.2",
+    "sqlalchemy>=2.0.45",
+]
