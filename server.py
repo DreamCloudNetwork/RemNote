@@ -44,7 +44,9 @@ class SecureReceivedSocket:
 
     def recv(self) -> str:
         # 接收数据
-        size = int.from_bytes(self.tls_socket.recv(4), 'big')
+        raw_size = self.tls_socket.recv(4)
+        size = int.from_bytes(raw_size, 'big')
+        # print(f"接收数据 : {raw_size} bytes")
         return self.tls_socket.recv(size).decode()
 
     def send(self, data: str):
@@ -58,7 +60,7 @@ class SecureReceivedSocket:
 
 class Server:
     def __init__(self):
-        self.socket = SecureServerSocket('localhost', 1443, 'local.crt', 'local.pem')
+        self.socket = SecureServerSocket('0.0.0.0', 1443, '192.168.10.30.crt', '192.168.10.30.pem')
         self.name = 'server'
         self.db_manager = get_db_manager()  # 初始化数据库管理器
 
@@ -86,7 +88,7 @@ class Server:
                 'id': 'welcome',
                 'content': f'hello, this is {self.name}'
             }
-            client_socket.send(json.dumps(welcome_packet))
+            # client_socket.send(json.dumps(welcome_packet))
 
             while True:
                 # 接收数据
@@ -97,6 +99,7 @@ class Server:
                 try:
                     # 解析JSON格式的消息
                     message_packet = json.loads(data)
+                    # print(f"收到客户端消息 [ID:{message_packet.get('id', 'unknown')}]: {message_packet.get('content', '')}")
 
                     # 如果是bye消息（兼容旧格式）
                     if isinstance(message_packet, dict) and message_packet.get('content') == 'bye':
