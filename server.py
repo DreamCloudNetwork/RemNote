@@ -60,7 +60,7 @@ class SecureReceivedSocket:
 
 class Server:
     def __init__(self):
-        self.socket = SecureServerSocket('0.0.0.0', 1443, '192.168.10.30.crt', '192.168.10.30.pem')
+        self.socket = SecureServerSocket('0.0.0.0', 1443, 'fullchain.crt', '192.168.10.30.pem')
         self.name = 'server'
         self.db_manager = get_db_manager()  # 初始化数据库管理器
 
@@ -143,7 +143,10 @@ class Server:
                         client_socket.close()
                         break
                     client_socket.send(data)
-
+        except ssl.SSLError as e:
+            print(f"SSL错误: {e}")
+            client_socket.close()
+            pass
         except Exception as e:
             print(f"客户端处理错误: {e}")
         finally:

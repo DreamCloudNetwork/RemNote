@@ -140,7 +140,7 @@ class Client:
 
     def run(self):
         try:
-            self.socket.connect('127.0.0.1', 1443)
+            self.socket.connect('192.168.10.30', 1443)
             # 启动响应处理线程
             response_thread = threading.Thread(target=self.handle_responses)
             response_thread.daemon = True
