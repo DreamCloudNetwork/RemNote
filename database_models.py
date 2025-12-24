@@ -53,7 +53,7 @@ class DatabaseManager:
         """
         try:
             if connection_string is None:
-                connection_string = "mariadb+mariadbconnector://root:Kevin@127.0.0.1:3306/renote"
+                connection_string = "mysql+pymysql://root:0d0c3cdcda2fe68a@127.0.0.1:3306/remnote"
             self.engine = create_engine(
                 connection_string,
                 echo=False,  # 设置为True可查看SQL语句
