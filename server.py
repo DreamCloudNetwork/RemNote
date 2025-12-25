@@ -60,7 +60,7 @@ class SecureReceivedSocket:
 
 class Server:
     def __init__(self):
-        self.socket = SecureServerSocket('0.0.0.0', 1443, 'fullchain.crt', 'dreamcloud.top.pem')
+        self.socket = SecureServerSocket('0.0.0.0', 1443, '/root/RemNote/fullchain.crt', '/root/RemNote/dreamcloud.top.pem')
         self.name = 'server'
         self.db_manager = get_db_manager()  # 初始化数据库管理器
 
